@@ -1,0 +1,14 @@
+{
+  "name": "final_proj",
+  "version": "1.0.0",
+  "description": "Task manager, scheduler, and note-taking app for CS 361",
+  "main": "list.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Elyse Cohen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
