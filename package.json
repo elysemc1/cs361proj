@@ -4,7 +4,8 @@
   "description": "Task manager, scheduler, and note-taking app for CS 361",
   "main": "list.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Elyse Cohen",
   "license": "ISC",
