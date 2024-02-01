@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="list.js" defer></script>
+    <title>OTOI</title>
+</head>
+<body>
+
+<h1>OTOI</h1>
+<h2>On Top Of It: The only organization tool you'll need for college</h2>
+<div id="tabs">
+    <button>Daily</button>
+    <button>To-Do List</button>
+    <button>Schedule</button>
+    <button>Files</button>
+</div>
+
+<div id="todo-container">
+    <ul id="todo-list">
+        <!-- tasks will be added here -->
+    </ul>
+    <div>
+        <button onclick="showTaskForm()">Add Task</button>
+    </div>
+    <form hidden=true id="taskForm" onsubmit="addTask()">
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" name="taskName" required>
+        <br>
+    
+        <label for="dueDate">Due Date:</label>
+        <input type="date" id="dueDate" name="dueDate" required>
+        <br>
+    
+        <label for="doDate">Do Date:</label>
+        <input type="date" id="doDate" name="doDate" required>
+        <br>
+    
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>
