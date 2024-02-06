@@ -22,9 +22,10 @@
         <!-- tasks will be added here -->
     </ul>
     <div>
-        <button onclick="return showTaskForm()">Add Task</button>
+        <button onclick="showTaskForm()">Add Task</button>
     </div>
-    <form hidden=true id="taskForm" action="" method="post" onsubmit="return addTask()">
+    <form hidden=true id="taskForm" onsubmit="return false">
+        <!-- by returning false, we prevent the default behavior and can instead call our own function with an event handler -->
         <label for="taskName">Task Name:</label>
         <input type="text" id="taskName" name="taskName" required>
         <br>
