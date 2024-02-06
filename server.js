@@ -10,9 +10,13 @@ const port = 8080;
 app.use(express.static('public'), express.json())
 
 app.get('/', (req, res) => {
-    // the homepage, for now, will be /list
-    res.redirect('/list')
-});
+    // direct new users to the welcome screen
+    res.redirect('/welcome')
+})
+
+app.get('/welcome', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'welcome.html'));
+})
 
 app.get('/list', (req, res) => {
     // serve the HTML file that shows the user's to-do list
@@ -24,6 +28,11 @@ app.get('/tasks', (req, res) => {
     const data = fs.readFileSync('tasks.json', 'utf-8')
     const tasks = data ? JSON.parse(data) : []
     res.json(tasks)
+})
+
+app.get('/instructions.txt', (req, res) => {
+    // serve the user the README
+    res.sendFile(path.join(__dirname, 'instructions.txt'))
 })
 
 // when we make a POST request to /tasks, we want to append the given task to the list
