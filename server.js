@@ -23,11 +23,23 @@ app.get('/list', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'list.html'));
 })
 
+app.get('/schedule', (req, res) => {
+    // serve the HTML file that shows the user's to-do list
+    res.sendFile(path.join(__dirname, 'public', 'schedule.html'));
+})
+
 app.get('/tasks', (req, res) => {
     // serve the contents of tasks.json 
     const data = fs.readFileSync('tasks.json', 'utf-8')
     const tasks = data ? JSON.parse(data) : []
     res.json(tasks)
+})
+
+app.get('/classes', (req, res) => {
+    // serve the contents of tasks.json 
+    const data = fs.readFileSync('classes.json', 'utf-8')
+    const classes = data ? JSON.parse(data) : []
+    res.json(classes)
 })
 
 app.get('/instructions.txt', (req, res) => {
@@ -60,11 +72,46 @@ app.delete('/tasks/:id', (req, res) => {
     const data = fs.readFileSync('tasks.json', 'utf-8')
     let tasks = data ? JSON.parse(data) : []
 
-    // eliminate tasks with name matching the one we want to delete
+    // eliminate tasks with ID matching the one we want to delete
     tasks = tasks.filter(task => task.id != req.params.id)
 
     // write updated task list to file
     fs.writeFileSync('tasks.json', JSON.stringify(tasks, null), 'utf-8')
+    // send OK
+    res.sendStatus(200)
+})
+
+// when we make a POST request to /classes, we want to append the given class to the list
+app.post('/classes', (req, res) => {
+    // read existing contents of tasks.json
+    const data = fs.readFileSync('classes.json', 'utf-8')
+    const classes = data ? JSON.parse(data) : []
+    // create a new task based on the body of the request
+    const newClass = {
+        id: req.body.id,
+        name: req.body.name,
+        days: req.body.days,
+        time: req.body.time, 
+        location: req.body.location
+    }
+    // add new task to the list
+    classes.push(newClass)
+    fs.writeFileSync('classes.json', JSON.stringify(classes, null), 'utf-8')
+    // send OK
+    res.sendStatus(200)
+})
+
+// when we make a DELETE request to /classes/:id, we want to delete that task
+app.delete('/classes/:id', (req, res) => {
+    // read existing contents of tasks.json
+    const data = fs.readFileSync('classes.json', 'utf-8')
+    let classes = data ? JSON.parse(data) : []
+
+    // eliminate classes with ID matching the one we want to delete
+    classes = classes.filter(clazz => clazz.id != req.params.id)
+
+    // write updated class list to file
+    fs.writeFileSync('classes.json', JSON.stringify(classes, null), 'utf-S8')
     // send OK
     res.sendStatus(200)
 })

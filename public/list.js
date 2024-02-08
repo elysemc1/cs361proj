@@ -68,7 +68,8 @@ async function addTask() {
         due: dueText,
         do: doText
     }
-
+    
+    // add the task to the database
     try {
         const response = await fetch('/tasks', {
             method: 'POST',
@@ -109,3 +110,10 @@ async function removeTask(id) {
     }
 }
 
+function toList(){
+    window.location.href = '/list'
+}
+
+function toSchedule(){
+    window.location.href = '/schedule'
+}

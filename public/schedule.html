@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="schedule.js" defer></script>
+    <title>OTOI</title>
+</head>
+<body>
+
+<h1>OTOI</h1>
+<h2>On Top Of It: The only organizational tool you'll need for college</h2>
+<div id="tabs">
+    <button>Daily</button>
+    <button onclick="toList()">To-Do List</button>
+    <button onclick="toSchedule()">Schedule</button>
+    <button>Files</button>
+</div>
+    <div id="scheduleApp">
+        <div id="classForm">
+            <label for="className">Class Name:</label>
+            <input type="text" id="className" placeholder="e.g. Statistics, CS 361" required>
+
+            <label for="classDays">Days of the Week:</label>
+            <input type="text" id="classDays" placeholder="e.g. Monday, Wednesday" required>
+
+            <label for="classTime">Class Time:</label>
+            <input type="text" id="classTime" placeholder="e.g. 2:00 or 17:00" required>
+
+            <label for="classLocation">Class Location:</label>
+            <input type="text" id="classLocation" placeholder="e.g. KEC, Online" required>
+
+            <button onclick="addClass()">Add Class</button>
+        </div>
+
+        <div class="schedule-container">
+            <div class="day-box" id="monday">
+                <h2>Monday</h2>
+                <ul id="mon-classes">
+                    <!-- Monday's classes go here -->
+                </ul>
+            </div>
+    
+            <div class="day-box" id="tuesday">
+                <h2>Tuesday</h2>
+                <ul id="tue-classes">
+                    <!-- Tuesday's classes go here -->
+                </ul>
+            </div>
+    
+            <div class="day-box" id="wednesday">
+                <h2>Wednesday</h2>
+                <ul id="wed-classes">
+                    <!-- Wednesday's classes go here -->
+                </ul>
+            </div>
+    
+            <div class="day-box" id="thursday">
+                <h2>Thursday</h2>
+                <ul id="thu-classes">
+                    <!-- Thursday's classes go here -->
+                </ul>
+            </div>
+    
+            <div class="day-box" id="friday">
+                <h2>Friday</h2>
+                <ul id="fri-classes">
+                    <!-- Friday's classes go here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -12,8 +12,8 @@
 <h2>On Top Of It: The only organizational tool you'll need for college</h2>
 <div id="tabs">
     <button>Daily</button>
-    <button>To-Do List</button>
-    <button>Schedule</button>
+    <button onclick="toList()">To-Do List</button>
+    <button onclick="toSchedule()">Schedule</button>
     <button>Files</button>
 </div>
 
@@ -27,7 +27,7 @@
     <form hidden=true id="taskForm" onsubmit="return false">
         <!-- by returning false, we prevent the default behavior and can instead call our own function with an event handler -->
         <label for="taskName">Task Name:</label>
-        <input type="text" id="taskName" name="taskName" required>
+        <input type="text" id="taskName" name="taskName" placeholder="e.g. walk the dog" required>
         <br>
     
         <label for="dueDate">Due Date:</label>
