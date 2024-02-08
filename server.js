@@ -9,7 +9,6 @@ const port = 8080;
 
 // serve files from the public directory, also parse json
 app.use(express.static('public'), express.json())
-app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
     // direct new users to the welcome screen
