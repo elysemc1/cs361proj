@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs')
+const multer = require('multer');
 
 // use express to serve the webpages
 const app = express();
@@ -8,6 +9,7 @@ const port = 8080;
 
 // serve files from the public directory, also parse json
 app.use(express.static('public'), express.json())
+app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
     // direct new users to the welcome screen
@@ -24,8 +26,13 @@ app.get('/list', (req, res) => {
 })
 
 app.get('/schedule', (req, res) => {
-    // serve the HTML file that shows the user's to-do list
+    // serve the HTML file that shows the user's classes
     res.sendFile(path.join(__dirname, 'public', 'schedule.html'));
+})
+
+app.get('/files', (req, res) => {
+    // serve the HTML file that shows the user's files/notes
+    res.sendFile(path.join(__dirname, 'public', 'notes.html'));
 })
 
 app.get('/tasks', (req, res) => {
@@ -115,6 +122,44 @@ app.delete('/classes/:id', (req, res) => {
     // send OK
     res.sendStatus(200)
 })
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // store uploads in a directory called uploads
+      cb(null, 'uploads/');
+    },
+    // store with a filename the same as the uploaded file
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    },
+});
+
+const upload = multer({ storage: storage });
+
+// when we make a post request, we don't actually want to change URLs
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.redirect('/files');
+});
+
+app.get('/download/:filename', (req, res) => {
+    const file = `uploads/${req.params.filename}`;
+    res.download(file, (err) => {
+        if (err) {
+        res.status(404).send('File not found');
+        }
+    });
+});
+
+app.get('/delete/:filename', (req, res) => {
+    const file = `uploads/${req.params.filename}`;
+    fs.unlink(file, (err) => {
+        if (err) {
+        res.status(404).send('File not found');
+        } else {
+        res.redirect('/');
+        }
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

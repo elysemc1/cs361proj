@@ -117,3 +117,7 @@ function toList(){
 function toSchedule(){
     window.location.href = '/schedule'
 }
+
+function toFiles(){
+    window.location.href = '/files'
+}
