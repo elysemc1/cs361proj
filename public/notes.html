@@ -16,13 +16,13 @@
     <button onclick="toSchedule()">Schedule</button>
     <button onclick="toFiles()">Files</button>
 </div>
-  <form action="/upload" method="post" enctype="multipart/form-data">
+  <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
     <input type="file" name="file" required>
     <button type="submit">Upload</button>
   </form>
 
   <h2>Uploaded Files</h2>
-  <ul>
+  <ul id="file-list">
     <!-- List uploaded files -->
     <!-- TODO list files here with a download and delete HREF using endpoints (see server)-->
   </ul>

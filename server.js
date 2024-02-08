@@ -126,11 +126,11 @@ app.delete('/classes/:id', (req, res) => {
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // store uploads in a directory called uploads
-      cb(null, 'uploads/');
+        cb(null, 'uploads/');
     },
     // store with a filename the same as the uploaded file
     filename: function (req, file, cb) {
-      cb(null, file.originalname);
+        cb(null, file.originalname);
     },
 });
 
@@ -156,10 +156,23 @@ app.get('/delete/:filename', (req, res) => {
         if (err) {
         res.status(404).send('File not found');
         } else {
-        res.redirect('/');
+        res.redirect('/files');
         }
     });
 });
+
+// this endpoint is for retrieving the uploaded files for display
+app.get('/getFiles', (req, res) => {
+    const uploadDir = 'uploads';
+    fs.readdir(uploadDir, (err, files) => {
+      if (err) {
+        console.error('Error reading directory:', err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.json(files);
+      }
+    });
+  });
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
