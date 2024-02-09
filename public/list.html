@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="list.js" defer></script>
     <title>OTOI</title>
+    <style>
+        .strikethrough {
+          text-decoration: line-through;
+        }
+    </style>
 </head>
 <body>
 
@@ -22,7 +27,7 @@
         <!-- tasks will be added here -->
     </ul>
     <div>
-        <button onclick="showTaskForm()">Add Task</button>
+        <button onclick="showTaskForm()">+</button>
     </div>
     <form hidden=true id="taskForm" onsubmit="return false">
         <!-- by returning false, we prevent the default behavior and can instead call our own function with an event handler -->

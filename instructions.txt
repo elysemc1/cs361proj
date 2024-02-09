@@ -1,1 +1,12 @@
-eat shit and die
+===== TO-DO LIST =====
+The to-do list page allows you to create tasks and cross off those you have completed. To create a new task, begin by pressing the "+" button at the bottom of the screen. This will prompt you to enter three arguments:
+
+1. The name of the task. This can be anything you choose. For example, perhaps you need to walk the dog, or complete milestone 1 for CS 361.
+2. The due date of the task. This is the strict assigned deadline that you have for the task. For example, perhaps your professor has requested that milestone 1 be completed no later than February 12, 2024. Here, you would enter that date as 02/12/2024
+3. The "do" date of the task. This is when you plan to work on the task, separate from the due date, so that you have enough time (perhaps multiple days) to complete the task before the due date. This helps discourage procrastination and helps you be ahead of the deadlines. Enter this date in the same format as above.
+
+If these arguments are not all provided, you will end up with blank spaces in your task. It is strongly encouraged to fill out all fields.
+
+Once the task information has been filled out, simply press the "Submit" button to add your task to the list. When you click the checkbox associated with the task, the task will become crossed off. If you make a mistake and accidentally cross off a task, simply uncheck the box to return the task to an incomplete state.
+
+===== SCHEDULE =====

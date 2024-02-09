@@ -4,17 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // so we can display any existing tasks
     fetchTasks()
 
-    // get all elements with type=checkbox
-    var checkboxes = document.querySelectorAll('input[type="checkbox"]')
-    // listen for the user clicking on any of the checkboxes
-    checkboxes.forEach(function(checkbox) {
-        checkbox.addEventListener('click', function() {
-            var listItem = this.parentNode
-            // remove the list item
-            listItem.parentNode.removeChild(listItem)
-        })
-    })
-
     // get the submit button on the form
     var submit = document.querySelectorAll('input[type="submit"]')
     // listen for the user clicking the submit button
@@ -40,8 +29,16 @@ function displayTasks(tasks) {
 
     tasks.forEach(task => {
         const listItem = document.createElement('li')
-        listItem.innerHTML = `<input type="checkbox" onclick="removeTask(${task.id})"><span>${task.name} | ${task.due} | ${task.do}</span>`
+        listItem.innerHTML = `<div class="check-parent"><input type="checkbox" onchange="toggleTask(${task.id})"><span id=${task.id}>${task.name} | ${task.due} | ${task.do}</span></div>`
         todoList.appendChild(listItem)
+        if (task.done === true){
+            // set the box to be checked
+            var checkbox = listItem.querySelectorAll('input[type="checkbox"]')[0]
+            checkbox.checked = true
+            // and strikethrough the text
+            var text = document.getElementById(task.id)
+            text.classList.add('strikethrough')
+        }
     })
 }
 
@@ -66,7 +63,8 @@ async function addTask() {
         id: Date.now(),
         name: nameText,
         due: dueText,
-        do: doText
+        do: doText,
+        done: false
     }
     
     // add the task to the database
@@ -93,6 +91,43 @@ async function addTask() {
     doInput.value = ""
     // hide the menu again, until the user presses "add task"
     document.getElementById('taskForm').hidden = true
+}
+
+async function toggleTask(id){
+    try {
+        // get information about the task to be toggled from the database
+        fetch(`/tasks/${id}`, {
+            method: 'GET'
+        }).then(response => {
+            if (!response.ok){
+                console.error("Response not OK")
+            }
+            return response.json()
+        }).then(data => {
+            // delete the old database entry
+            removeTask(data.id)
+            const newTask = {
+                id: data.id,
+                name: data.name,
+                due: data.due,
+                do: data.do,
+                done: !data.done
+            }
+            
+            // and post this new entry to the database
+            fetch('/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newTask)
+            })
+            // show updated tasks
+            fetchTasks()
+        })
+    } catch (error) {
+        console.error('Error toggling task:', error)
+    }
 }
 
 async function removeTask(id) {

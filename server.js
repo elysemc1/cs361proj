@@ -60,16 +60,31 @@ app.post('/tasks', (req, res) => {
     const tasks = data ? JSON.parse(data) : []
     // create a new task based on the body of the request
     const newTask = {
-        id: req.body.id,
+        id: Date.now(),
         name: req.body.name,
         due: req.body.due,
-        do: req.body.do
+        do: req.body.do,
+        done: req.body.done
     }
     // add new task to the list
     tasks.push(newTask)
     fs.writeFileSync('tasks.json', JSON.stringify(tasks, null), 'utf-8')
     // send OK
     res.sendStatus(200)
+})
+
+app.get('/tasks/:id', (req, res) => {
+    // read existing contents of tasks.json
+    const data = fs.readFileSync('tasks.json', 'utf-8')
+    let tasks = data ? JSON.parse(data) : []
+
+    // find task with the matching ID
+    tasks.forEach(function(task) {
+        if (task.id == req.params.id) {
+            res.json(task)
+        }
+    })
+
 })
 
 // when we make a DELETE request to /tasks/:id, we want to delete that task
