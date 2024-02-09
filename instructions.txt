@@ -10,3 +10,16 @@ If these arguments are not all provided, you will end up with blank spaces in yo
 Once the task information has been filled out, simply press the "Submit" button to add your task to the list. When you click the checkbox associated with the task, the task will become crossed off. If you make a mistake and accidentally cross off a task, simply uncheck the box to return the task to an incomplete state.
 
 ===== SCHEDULE =====
+The schedule page allows you to input your school schedule to conveniently view each of your classes by day. To add a class, input the following information to the text boxes provided:
+
+1. The name of the class. This can be anything you wish to identify the class by, for example, the official title (Software Engineering) or the number/letter title (CS 361)
+2. The days of the week that the class meets. You MUST input the full name of the day of the week, with appropriate capitalization, for the class to be put under the proper day of the week. 
+3. The time that the class meets. This may be in 12 hour or 24 hour time. Currently, there is not automatic ordering of classes, but this feature is planned for a future release.
+4. The location of the class. This may be anything but most likely consists of the name of the class building and the identifier for the class room, e.g. room number 224.
+
+===== FILES =====
+The files page allows you to upload, download, and delete any files -- we recommend using it to upload notes from your classes! Each of these functions are discussed in detail below.
+
+* UPLOAD: To upload a file, first click the "Choose File" button and select a file from your computer. Once you have selected a file, click the "Upload" button to upload the file to the server (Ellie's computer). Upon successful upload, this file will then be visible in the list of uploaded files below.
+* DELETE: To delete a file, simply click the "Delete" button. You will be prompted to double-check that you really wanted to delete the file! If it was intended, simply click "Delete" a second time to continue.
+* DOWNLOAD: To download your file, simply click the "Download" button.

@@ -17,11 +17,24 @@ function showFiles(){
       files.forEach(file => {
         const listItem = document.createElement('li');
         listItem.textContent = file;
-        listItem.innerHTML = `<span>${file} <a href="/delete/${file}">Delete</a> <a href="/download/${file}" download>Download</a></span>`
+        listItem.innerHTML = `<span>${file} </span> <a href="/download/${file}" download>[download]</a> <button id="delete-button" onclick=del('${file}')>Delete</button> `
         fileList.appendChild(listItem);
       });
     })
     .catch(error => console.error('Error fetching file list:', error));
+}
+
+async function del(file){
+    // first confirm that we really want to delete
+    var userConfirmed = window.confirm("Are you sure you want to delete the file?");
+    if (userConfirmed) {
+        try {
+            fetch(`/delete/${file}`)
+            window.location.href = '/files' // refresh the page to show changes
+        } catch (error) {
+            console.error('Error deleting file:', error)
+        }
+    }
 }
 
 function toList(){
