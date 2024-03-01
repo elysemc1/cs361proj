@@ -41,6 +41,19 @@ app.get('/tasks', (req, res) => {
     res.json(tasks)
 })
 
+app.post('/order', (req, res) => {
+    // call Mason's microservice
+    fs.writeFileSync('./task-sorter-main/pipe.txt', JSON.stringify(req.body))
+    fs.writeFileSync('./task-sorter-main/status.txt', 'ready')
+    // wait until microservice reports "done"
+    done = fs.readFileSync('./task-sorter-main/status.txt', 'utf-8')
+    while (done != "done"){
+        done = fs.readFileSync('./task-sorter-main/status.txt', 'utf-8')
+    }
+    result = fs.readFileSync('./task-sorter-main/pipe.txt', 'utf-8')
+    res.json(result)
+})
+
 app.get('/classes', (req, res) => {
     // serve the contents of tasks.json 
     const data = fs.readFileSync('classes.json', 'utf-8')

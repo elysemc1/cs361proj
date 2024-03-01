@@ -17,9 +17,33 @@ async function fetchTasks() {
     try {
         const response = await fetch('/tasks')
         const tasks = await response.json()
-        displayTasks(tasks)
+        // order the tasks before displaying them using Mason's microservice
+        orderedTasks = await orderTasks(tasks)
+        displayTasks(JSON.parse(orderedTasks))
     } catch (error) {
         console.error('Error fetching tasks:', error)
+    }
+}
+
+async function orderTasks(tasks){
+    // we can only write to files on the server side using fs
+    // so we need to send our tasks to the server
+    try {
+        const response = await fetch('/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(tasks)
+        })
+
+        if (response.ok) {
+            // fetch and display updated tasks after adding
+            res = await response.json()
+            return res
+        } 
+    } catch (error) {
+        console.error('Error ordering tasks:', error)
     }
 }
 
