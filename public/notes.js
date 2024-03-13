@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // display all uploaded files
+    // display all uploaded files on DOM load AND when we add a file
     showFiles()
-    // and display them when we press submit
     const form = document.getElementById('upload-form')
     form.addEventListener('submit', function(event){
         showFiles()
@@ -29,22 +28,11 @@ async function del(file){
     var userConfirmed = window.confirm("Are you sure you want to delete the file?");
     if (userConfirmed) {
         try {
+            // if confirmed, really delete
             fetch(`/delete/${file}`)
             window.location.href = '/files' // refresh the page to show changes
         } catch (error) {
             console.error('Error deleting file:', error)
         }
     }
-}
-
-function toList(){
-    window.location.href = '/list'
-}
-
-function toSchedule(){
-    window.location.href = '/schedule'
-}
-
-function toFiles(){
-    window.location.href = '/files'
 }

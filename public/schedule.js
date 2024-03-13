@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-
-    // first thing we do is fetch classes from the database
-    // so we can display any existing classes
+    // fetch and display existing classes
     fetchClasses()
 })
 
@@ -16,7 +14,6 @@ async function fetchClasses() {
 }
 
 function displayClasses(classes) {
-    const schedule = document.getElementsByClassName("schedule-container")
     const mon = document.getElementById("mon-classes")
     const tue = document.getElementById("tue-classes")
     const wed = document.getElementById("wed-classes")
@@ -63,7 +60,6 @@ async function addClass() {
         return;
     }
 
-    // Create a class object
     const newClass = {
         id: Date.now(),
         name: className,
@@ -72,7 +68,7 @@ async function addClass() {
         location: classLocation
     };
 
-    // add the class to the database
+    // add newClass to the database
     try {
         const response = await fetch('/classes', {
             method: 'POST',
@@ -110,17 +106,5 @@ async function removeClass(id) {
     } catch (error) {
         console.error('Error deleting class:', error)
     }
-}
-
-function toList(){
-    window.location.href = '/list'
-}
-
-function toSchedule(){
-    window.location.href = '/schedule'
-}
-
-function toFiles(){
-    window.location.href = '/files'
 }
 

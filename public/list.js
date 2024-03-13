@@ -1,12 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-
-    // first thing we do is fetch tasks from the database
-    // so we can display any existing tasks
+    // fetch and display existing tasks
     fetchTasks()
 
-    // get the submit button on the form
-    var submit = document.querySelectorAll('input[type="submit"]')
     // listen for the user clicking the submit button
+    var submit = document.querySelectorAll('input[type="submit"]')
     submit[0].addEventListener('click', function(event){
         event.preventDefault()
         addTask()
@@ -56,10 +53,9 @@ function displayTasks(tasks) {
         listItem.innerHTML = `<div class="check-parent"><input type="checkbox" onchange="toggleTask(${task.id})"><span id=${task.id}>${task.name} | ${task.due} | ${task.do}</span></div>`
         todoList.appendChild(listItem)
         if (task.done === true){
-            // set the box to be checked
+            // set the box to be checked and strikethrough the text
             var checkbox = listItem.querySelectorAll('input[type="checkbox"]')[0]
             checkbox.checked = true
-            // and strikethrough the text
             var text = document.getElementById(task.id)
             text.classList.add('strikethrough')
         }
@@ -67,12 +63,10 @@ function displayTasks(tasks) {
 }
 
 function showTaskForm() {
-    // show the form
     document.getElementById('taskForm').hidden = false
 }
 
 async function addTask() {
-    // get the input for all three elements
     var nameInput = document.getElementById("taskName")
     var nameText = nameInput.value.trim()
 
@@ -82,7 +76,6 @@ async function addTask() {
     var doInput = document.getElementById("doDate")
     var doText = doInput.value.trim()
 
-    // create a new task to add to the database
     const newTask = {
         id: Date.now(),
         name: nameText,
@@ -91,7 +84,7 @@ async function addTask() {
         done: false
     }
     
-    // add the task to the database
+    // add newTask to the database
     try {
         const response = await fetch('/tasks', {
             method: 'POST',
@@ -109,7 +102,6 @@ async function addTask() {
         console.error('Error adding task:', error)
     }
 
-    // clear fields for next time
     nameInput.value = ""
     dueInput.value = ""
     doInput.value = ""
@@ -167,16 +159,4 @@ async function removeTask(id) {
     } catch (error) {
         console.error('Error deleting task:', error)
     }
-}
-
-function toList(){
-    window.location.href = '/list'
-}
-
-function toSchedule(){
-    window.location.href = '/schedule'
-}
-
-function toFiles(){
-    window.location.href = '/files'
 }
